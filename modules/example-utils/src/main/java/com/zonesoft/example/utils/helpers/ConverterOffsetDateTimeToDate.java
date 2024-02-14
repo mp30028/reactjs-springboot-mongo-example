@@ -1,4 +1,4 @@
-package com.zonesoft.example.greeting.api.configurations;
+package com.zonesoft.example.utils.helpers;
 
 import org.springframework.core.convert.converter.Converter;
 

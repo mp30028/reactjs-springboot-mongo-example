@@ -14,6 +14,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.zonesoft</groupId>
+			<artifactId>example-utils</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -21,7 +26,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.zonesoft.example.greeting.api.HirefourApiApp</mainClass>
+					<mainClass>com.zonesoft.example.greeting.api.GreetingApiApp</mainClass>
 					<layout>JAR</layout>
 				</configuration>
 				<executions>

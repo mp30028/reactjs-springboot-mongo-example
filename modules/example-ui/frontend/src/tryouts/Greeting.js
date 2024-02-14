@@ -7,7 +7,7 @@ const Greeting = () => {
 	useEffect(() => {
 		const fetchGreeting = async() => {
 				const response = await fetch(
-					"http://localhost:8881/greeting", 
+					"http://localhost:7771/greeting", 
 					{	method: 'GET',
 						headers: {
 							'Content-Type': 'application/json;charset=UTF-8',

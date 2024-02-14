@@ -7,21 +7,5 @@
   </parent>
   <artifactId>example-utils</artifactId>
   <name>example-utils</name>
-  <description>reusable utilties</description>
- 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-				    <execution>
-				        <goals>
-				            <goal>repackage</goal>
-				        </goals>
-				    </execution>
-				</executions>
-			</plugin>			
-			
-		</plugins>
-	</build> 
+  <description>reusable utilties</description> 
 </project>
