@@ -4,7 +4,7 @@
   "description": "A try out making a reusable simple react library component",
   "author": "mp30028",
   "license": "MIT",
-  "repository": "mp30028/simple-greeting",
+  "repository": "mp30028/reactjs-springboot-mongo-example/ui-library/simple-greeting",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.js",
