@@ -4,15 +4,12 @@ import java.time.OffsetDateTime;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-//import com.zonesoft.example.utils.helpers.ToStringHelper;
-
-//import com.zonesoft.example.utils.helpers.ToStringHelper;
+import com.zonesoft.example.utils.helpers.ToStringHelper;
 
 @Document(collection = "greetings")
 public class Greeting {
 	
-	private static final String DEFAULT_USERNAME = "--UNKNOWN--";
+	public static final String DEFAULT_USERNAME = "--UNKNOWN--";
 	
 	@Id private String id;
 	private String username;
@@ -71,15 +68,15 @@ public class Greeting {
 		this.timeOfGreeting = timeOfGreeting;
 	} 
 	
-//	@Override
-//	public String toString(){
-//		ToStringHelper helper = new ToStringHelper();
-//		return helper.begin()
-//			.wrLn("id", id)
-//			.wrLn("username", username)
-//			.wrLn("message", message)
-//			.wr("timeOfGreeting", timeOfGreeting)
-//		.end().build();
-//	}
+	@Override
+	public String toString(){
+		ToStringHelper helper = new ToStringHelper();
+		return helper.begin()
+			.wrLn("id", id)
+			.wrLn("username", username)
+			.wrLn("message", message)
+			.wr("timeOfGreeting", timeOfGreeting)
+		.end().build();
+	}
 
 }
