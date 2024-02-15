@@ -2,6 +2,7 @@
 export default class ApiClientConfigs{
 	
 	static paths = {
+		SimpleGreeting: "/greeting",
 		assetType: "/asset-type",
 		attribute: "/attribute",
 		policy: "/policy"
@@ -11,22 +12,20 @@ export default class ApiClientConfigs{
 		const allEnvVarsSet = (
 			("REACT_APP_ENV_API_PROTOCOL" in process.env) &&
 			("REACT_APP_ENV_API_HOST" in process.env) &&
-			("REACT_APP_ENV_API_PORT" in process.env) &&
-			("REACT_APP_ENV_API_CONTEXT_PATH" in process.env)
+			("REACT_APP_ENV_API_PORT" in process.env)
 		);
 		if (allEnvVarsSet){
 			this.envVars = {
 				REACT_APP_ENV_API_PROTOCOL: `${process.env.REACT_APP_ENV_API_PROTOCOL}`,
 				REACT_APP_ENV_API_HOST: `${process.env.REACT_APP_ENV_API_HOST}`,
-				REACT_APP_ENV_API_PORT: `${process.env.REACT_APP_ENV_API_PORT}`,
-				REACT_APP_ENV_API_CONTEXT_PATH: `${process.env.REACT_APP_ENV_API_CONTEXT_PATH}`,
+				REACT_APP_ENV_API_PORT: `${process.env.REACT_APP_ENV_API_PORT}`
 			}
 		}else{
-			this.envVars = this.#synchronousFetchEnvVars();
+			this.envVars = this.synchronousFetchEnvVars();
 		}
 	}
 		
-	#synchronousFetchEnvVars() {
+	synchronousFetchEnvVars() {
 		const fetchUrl = "/policy-engine/env-vars";
    		const xhr = new XMLHttpRequest();
    		xhr.open('GET', fetchUrl, false);
@@ -39,11 +38,11 @@ export default class ApiClientConfigs{
 	}		
 		
 	
-	#baseUrl = () =>{
-		return this.envVars.REACT_APP_ENV_API_PROTOCOL + "://" + this.envVars.REACT_APP_ENV_API_HOST + ":" + this.envVars.REACT_APP_ENV_API_PORT + this.envVars.REACT_APP_ENV_API_CONTEXT_PATH;	
+	baseUrl = () =>{
+		return this.envVars.REACT_APP_ENV_API_PROTOCOL + "://" + this.envVars.REACT_APP_ENV_API_HOST + ":" + this.envVars.REACT_APP_ENV_API_PORT;	
 	};
 
 	getUrl = (pathName) => {
-		return this.#baseUrl() + ApiClientConfigs.paths[pathName];
+		return this.baseUrl() + ApiClientConfigs.paths[pathName];
 	}
 }

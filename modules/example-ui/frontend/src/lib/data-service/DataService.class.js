@@ -19,6 +19,7 @@ export default class DataService{
 	}		
 	
 	fetchAll = async () => {
+		
 		return await this.fetch(this.configs.getUrl(this.pathName));
 	}
 

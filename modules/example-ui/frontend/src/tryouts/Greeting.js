@@ -1,36 +1,18 @@
-import React, {useState, useEffect} from 'react';
-//import {SimpleGreeting} from 'simple-greeting';
-//import DataService from '../classes/data-services/DataService.class';
-//import ApiClientConfigs from '../classes/configurations/ApiClientConfigs.class';
+import React from 'react';
+import DataService from '../lib/data-service';
+import ApiClientConfigs from '../lib/api-client-configs';
+import SimpleGreeting from '../lib/simple-greeting';
 
 const Greeting = () => {
-	const emptyDataObject = {id:"temp-id-000", username: "--UNKNOWN--", message :"", timeOfGreeting :""};
-	const [dataObject, setDataObject] = useState(emptyDataObject);
+	const CONFIG_KEY = "SimpleGreeting";
+	const dataService = new DataService(new ApiClientConfigs(), CONFIG_KEY);
 	
-	useEffect(() => {
-		const fetchGreeting = async() => {
-				const response = await fetch(
-					"http://localhost:8080/greeting", 
-					{	method: 'GET',
-						headers: {
-							'Content-Type': 'application/json;charset=UTF-8',
-							'Accept': 'application/json, text/plain'
-						}
-					}
-				);
-				return await response.json();
-		};	
-	  fetchGreeting().then((greetingData) => setDataObject(greetingData))
-	 },[setDataObject]);
-	
-
 	return (
 		<>
-			{dataObject.message}
+			<SimpleGreeting  dataService={dataService} />
 		
-		</>
+		</>	
 	)
-
 
 }
 
