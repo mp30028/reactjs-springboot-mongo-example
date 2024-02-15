@@ -3,6 +3,7 @@ export default class ApiClientConfigs{
 	
 	static paths = {
 		SimpleGreeting: "/greeting",
+		Greetings: "/api/greetings",
 		assetType: "/asset-type",
 		attribute: "/attribute",
 		policy: "/policy"
