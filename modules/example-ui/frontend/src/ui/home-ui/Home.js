@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import "./static/css/HirefourTabs.css";
-import Greeting from './tryouts/Greeting';
+import "./Home.css";
+import SimpleGreeting from '../simple-greeting-ui';
 
 function Home() {
 	return (
@@ -17,9 +17,9 @@ function Home() {
 			
 			<TabPanel key={2}>
 				<h2>Demo-1</h2>
-					Invokes the applications core service Greetings-API
+					Invokes the Simple-Greeting-API
 					<h3>Service Response:</h3> 
-					<p>&gt;&gt;&gt;&gt; <Greeting/></p>
+					<SimpleGreeting/>
 				<hr/>
 			</TabPanel>
 		</Tabs>
