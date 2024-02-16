@@ -1,7 +1,8 @@
 import React from 'react';
-import DataService from '../../lib/data-service';
-import ApiClientConfigs from '../../lib/api-client-configs';
-import GreetingsComponent from '../../lib/greetings';
+import DataService from 'lib/data-service';
+import ApiClientConfigs from 'lib/api-client-configs';
+
+import RawDisplay from 'lib/raw-display';
 
 const Greetings = () => {
 	const CONFIG_KEY = "Greetings";
@@ -9,7 +10,7 @@ const Greetings = () => {
 	
 	return (
 		<>
-			<GreetingsComponent  dataService={dataService} />
+			<RawDisplay  dataService={dataService} />
 		
 		</>	
 	)

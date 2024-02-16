@@ -1,7 +1,7 @@
 import React from 'react';
 
-import SimpleGreeting from '../simple-greeting-ui';
-import Greetings from '../greetings-ui'
+import SimpleGreeting from 'ui/simple-greeting';
+import Greetings from 'ui/greetings'
 
 const Demo = () => {
 	
