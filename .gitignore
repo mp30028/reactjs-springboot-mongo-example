@@ -13,6 +13,8 @@ _scratches/*
 ## backup files
 ##############################
 *.*_BACKUP*
+*_BACKUP*/
+
 
 ##############################
 ## disabled-files
