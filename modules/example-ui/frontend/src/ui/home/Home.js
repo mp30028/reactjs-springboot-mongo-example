@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "./Home.css";
-import Demo from 'ui/demo';
+import Demo from 'ui/home/demo';
 
 function Home() {
 	return (
