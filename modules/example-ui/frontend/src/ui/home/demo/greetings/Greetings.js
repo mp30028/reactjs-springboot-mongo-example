@@ -11,7 +11,6 @@ const Greetings = () => {
 	return (
 		<>
 			<RawDisplay  dataService={dataService} />
-		
 		</>	
 	)
 

@@ -7,12 +7,12 @@ function Home() {
 	return (
 		<Tabs>
 			<TabList>
-				<Tab key={1}>Bookings Management</Tab>
+				<Tab key={1}>Main App</Tab>
 				<Tab key={2}>Demos, examples etc</Tab>
 			</TabList>
 
 			<TabPanel key={1}>
-				<h2>Core app to manage bookings will go here</h2>
+				<h2>Core app would go here</h2>
 			</TabPanel>
 			
 			<TabPanel key={2}>
