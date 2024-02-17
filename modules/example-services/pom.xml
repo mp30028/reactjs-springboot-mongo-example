@@ -11,6 +11,7 @@
   <description>Services parent module</description>
 	<modules>
 		<module>greeting-api</module>
+		<module>persons-api</module>
 	</modules>
 <!--	<dependencies>-->
 <!--		<dependency>-->
