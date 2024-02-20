@@ -9,13 +9,11 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.zonesoft.example.utils.enums.Gender;
+
 public class Generator {
 	
-	public enum Gender {
-		MALE,
-		FEMALE
-	}
-	
+
 	private static final String[] FEMALE_FIRSTNAMES = { "Nicola", "Karen", "Fiona", "Susan", "Claire", "Sharon",
 			"Angela", "Gillian", "Julie", "Michelle", "Jacqueline", "Amanda", "Tracy", "Louise", "Jennifer", "Alison",
 			"Sarah", "Donna", "Caroline", "Elaine", "Lynn", "Margaret", "Elizabeth", "Lesley", "Deborah", "Pauline",
