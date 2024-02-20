@@ -8,4 +8,16 @@
   <artifactId>persons-api</artifactId>
   <name>persons-api</name>
   <description>Web services to manage people</description>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.zonesoft.example.persons.PersonsApiApp</mainClass>
+					<layout>JAR</layout>
+				</configuration>
+			</plugin>						
+		</plugins>
+	</build>  
 </project>
