@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zonesoft.example.persons.api.entities.OtherName;
 import com.zonesoft.example.persons.api.entities.Person;
 import com.zonesoft.example.utils.enums.Gender;
@@ -11,7 +14,7 @@ import com.zonesoft.example.utils.synthetics.Generator;
 import com.zonesoft.example.utils.synthetics.ISyntheticRecordBuilder;
 
 public class PersonBuilder extends Person implements ISyntheticRecordBuilder<Person, PersonBuilder> {
-	
+	private static final long serialVersionUID = -158456690212315017L;
 	private static final int DEFAULT_MIN_NUMBER_OF_OTHER_NAMES = 1;
 	private static final int DEFAULT_MAX_NUMBER_OF_OTHER_NAMES = 5;
 	
@@ -113,6 +116,26 @@ public class PersonBuilder extends Person implements ISyntheticRecordBuilder<Per
 	@Override
 	public Person build() {
 		return this;
-	}	
-	
+	}
+
+	@Override
+	public PersonBuilder clone(Person source) {
+		Person newPerson = null;
+        try {
+        	ObjectMapper mapper = new ObjectMapper();
+        	newPerson = mapper.readValue(mapper.writeValueAsString(source), Person.class);
+    		return this
+    			.gender(newPerson.getGender())
+    			.firstname(newPerson.getFirstname())
+    			.lastname(newPerson.getLastname())
+    			.moniker(newPerson.getMoniker())    		
+    			.otherNames(newPerson.getOtherNames());        	
+        } catch (JsonMappingException e) {
+			e.printStackTrace();
+			return this;
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return this;
+		}
+	}
 }

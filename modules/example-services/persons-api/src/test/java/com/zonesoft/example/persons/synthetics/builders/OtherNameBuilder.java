@@ -2,11 +2,16 @@ package com.zonesoft.example.persons.synthetics.builders;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zonesoft.example.persons.api.entities.OtherName;
 import com.zonesoft.example.utils.synthetics.Generator;
 import com.zonesoft.example.utils.synthetics.ISyntheticRecordBuilder;
 
 public class OtherNameBuilder extends OtherName implements ISyntheticRecordBuilder<OtherName, OtherNameBuilder> {
+
+	private static final long serialVersionUID = -8041265319867618060L;
 
 	public OtherNameBuilder id() {
 		this.setId(Generator.generateUUID());
@@ -77,6 +82,24 @@ public class OtherNameBuilder extends OtherName implements ISyntheticRecordBuild
 	@Override
 	public OtherName build() {
 		return this;
+	}
+
+	@Override
+	public OtherNameBuilder clone(OtherName source) {
+		OtherName newOtherName = null;
+        try {
+        	ObjectMapper mapper = new ObjectMapper();
+        	newOtherName = mapper.readValue(mapper.writeValueAsString(source), OtherName.class);
+    		return this.id(newOtherName.getId())
+    		.nameType(newOtherName.getNameType())
+    		.value(newOtherName.getValue());        	
+        } catch (JsonMappingException e) {
+			e.printStackTrace();
+			return this;
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return this;
+		}
 	}
 	
 }
