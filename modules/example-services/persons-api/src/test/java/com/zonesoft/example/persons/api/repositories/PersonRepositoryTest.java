@@ -1,6 +1,7 @@
 package com.zonesoft.example.persons.api.repositories;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -23,12 +24,12 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
 import com.zonesoft.example.persons.api.entities.Person;
-import com.zonesoft.example.persons.api.repositories.PersonRepository;
 import com.zonesoft.example.persons.synthetics.builders.PersonBuilder;
 import com.zonesoft.example.utils.helpers.MethodInfo;
 import com.zonesoft.example.utils.synthetics.SyntheticRecordsGenerator;
 
 import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
 @Testcontainers
 @SpringBootTest
@@ -115,6 +116,43 @@ class PersonRepositoryTest {
  		Person findResult = findResultMono.block();
  		LOGGER.debug("{}: findResult={}", MethodInfo.methodName(), findResult);
  		assertTrue(findResultMono.hasElement().block());
+	}	
+	
+	@Test
+	@Order(5)
+	@DisplayName("Use findById to look for a record that does not exist")
+	void findByIdForRecordThatDoesNotExist() {
+		
+		//Add at least one record before testing the find
+			Person person = new PersonBuilder().withDefaults().build();
+			LOGGER.debug("{}: person={}", MethodInfo.methodName(), person);
+			Person savedPerson = repository.save(person).block();
+			LOGGER.debug("{}: savedPerson={}", MethodInfo.methodName(), savedPerson);
+		
+		//Now do the find for the non existent id
+			String id = "b014ca54-4abe-4c11-ae8c-bee30e452733";
+	 		Mono<Person> findResultMono = repository.findById(id);
+	 		StepVerifier
+	 			.create(findResultMono)
+	 			.expectNextCount(0)
+	 			.expectComplete();
+	}
+	
+	@Test
+	@Order(6)
+	@DisplayName("Use findById to look for an id criteria value set to null")
+	void findByIdWhenCriteriaValueIsNull() {
+		
+		//Add at least one record before testing the find
+			Person person = new PersonBuilder().withDefaults().build();
+			LOGGER.debug("{}: person={}", MethodInfo.methodName(), person);
+			Person savedPerson = repository.save(person).block();
+			LOGGER.debug("{}: savedPerson={}", MethodInfo.methodName(), savedPerson);
+		
+		//Now do the find using id = null
+			String id = null;
+			IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> repository.findById(id));
+			assertEquals("The given id must not be null", exception.getMessage());
 	}	
 	
 }
