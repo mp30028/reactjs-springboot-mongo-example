@@ -11,6 +11,7 @@ public class SpringCloudConfig {
     @Bean
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
+        		.route("persons-api", r -> r.path("/api/persons/**").uri("http://localhost:7772"))
                 .route("greeting-api", r -> r.path("/api/greetings/**").uri("http://localhost:7771"))
                 .route("simple-greeting", r -> r.path("/greeting").uri("http://localhost:7771"))
                 .route("environment-variables", r -> r.path("/environment-variables").uri("http://localhost:3000/"))
