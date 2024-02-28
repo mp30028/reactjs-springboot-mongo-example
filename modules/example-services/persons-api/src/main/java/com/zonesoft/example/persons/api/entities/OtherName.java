@@ -3,6 +3,7 @@ package com.zonesoft.example.persons.api.entities;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import com.zonesoft.example.utils.helpers.ToStringHelper;
 
@@ -72,6 +73,22 @@ public class OtherName {
 			.wrLn("value", value)
 			.wr("nameType", nameType)
 		.end().build();		
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, nameType, value);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (!(obj instanceof OtherName))return false;
+		OtherName other = (OtherName) obj;
+		return 
+				Objects.equals(id, other.id) && 
+				nameType == other.nameType && 
+				Objects.equals(value, other.value);
 	}
 	
 }

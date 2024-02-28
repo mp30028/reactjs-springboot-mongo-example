@@ -1,7 +1,9 @@
 package com.zonesoft.example.persons.api.entities;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -98,4 +100,49 @@ public class Person {
 		.end().build();
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(firstname, gender, id, lastname, moniker, otherNames);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (!(obj instanceof Person)) return false;
+		Person other = (Person) obj;
+		return 
+				Objects.equals(firstname, other.getFirstname()) && 
+				gender == other.getGender() &&
+				Objects.equals(id, other.getId()) &&
+				Objects.equals(lastname, other.getLastname()) && 
+				Objects.equals(moniker, other.getMoniker()) &&
+				areOtherNamesEqual(otherNames, other.getOtherNames());
+	}
+
+	private boolean areOtherNamesEqual(List<OtherName> thisList, List<OtherName> otherList) {
+		boolean comparisonResult = false;
+		Comparator<OtherName> comparator =  new Comparator<OtherName>() { 
+			@Override
+			public int compare(OtherName on1, OtherName on2) {
+				return on1.getId().compareTo(on2.getId());
+			}
+		};
+		if (thisList.size() == otherList.size()) {
+			thisList.sort(comparator);
+			otherList.sort(comparator);
+			for (int j = 0; j < thisList.size(); j++) {
+				if (thisList.get(j).equals(otherList.get(j))) {
+					comparisonResult = true;
+				}else {
+					comparisonResult = false;
+					break;
+				}
+			}
+		} else {
+			comparisonResult = false;
+		}
+		return comparisonResult;
+	}
+	
 }
