@@ -28,7 +28,8 @@
 		<npm.version>9.6.7</npm.version>
 		<maven-resources-plugin.version>3.3.0</maven-resources-plugin.version>
 		<spring-cloud.version>2022.0.3</spring-cloud.version>
-		<spring-plugin-core.version>3.0.0</spring-plugin-core.version>		
+		<spring-plugin-core.version>3.0.0</spring-plugin-core.version>
+		<rest-assured.version>5.4.0</rest-assured.version>
 	</properties>
 	<dependencies>
 		<dependency>

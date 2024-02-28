@@ -115,6 +115,10 @@ public class ToStringHelper {
 		return this;
 	}	
 	
+	public<E> ToStringHelper wrLn(String key, List<E> value) {
+		return  wrLn(key, value, (e -> e.toString()));
+	}		
+	
 	public ToStringHelper wr(String key, String value) {
 		this.key(key).value(value);
 		return this;
@@ -129,6 +133,10 @@ public class ToStringHelper {
 		String valueAsString = Objects.nonNull(value) ? this.<E>listToString(value, mapper) : "null";
 		this.key(key).value((Object)valueAsString);
 		return this;
+	}	
+	
+	public<E> ToStringHelper wr(String key, List<E> value) {
+		return  wr(key, value, (e -> e.toString()));
 	}	
 	
 	private <E> String listToString(List<E> list, Function<E, String> mapper) {

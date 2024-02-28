@@ -1,24 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>com.zonesoft</groupId>
-		<artifactId>example-services</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</parent>
-	<artifactId>greeting-api</artifactId>
-	<name>greeting-api</name>
-	<description>Prototype and Test API to check basic setup and wiring</description>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.zonesoft</groupId>
+    <artifactId>example-services</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>persons-api</artifactId>
+  <name>persons-api</name>
+  <description>Web services to manage people</description>
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.zonesoft.example.greeting.GreetingApiApp</mainClass>
+					<mainClass>com.zonesoft.example.persons.PersonsApiApp</mainClass>
 					<layout>JAR</layout>
 				</configuration>
 			</plugin>						
 		</plugins>
-	</build>
+	</build>  
 </project>

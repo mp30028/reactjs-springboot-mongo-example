@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "./Home.css";
 import Demo from 'ui/home/demo';
+import Persons from 'ui/home/persons';
 
 function Home() {
 	return (
@@ -12,7 +13,7 @@ function Home() {
 			</TabList>
 
 			<TabPanel key={1}>
-				<h2>Core app would go here</h2>
+				<Persons />
 			</TabPanel>
 			
 			<TabPanel key={2}>
