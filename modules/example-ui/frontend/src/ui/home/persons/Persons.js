@@ -23,20 +23,18 @@ const Persons = () => {
 			return (
 				<>
 				 	{dataItem.otherNames.map((otherName) =>
-						<>
-								<Container fluid="false" style={{marginLeft: '1rem'}}>
-									<Row>
-										<Col xl={1} >
-											{otherName.value}
-										</Col>
-										<Col>
-											<Badge bg="secondary">
-												{otherName.nameType}
-											</Badge>
-										</Col>
-									</Row>
-								</Container>							
-						</>
+						<Container fluid="false" style={{marginLeft: '1.5rem'}}>
+							<Row>
+								<Col xl={1} >
+									{otherName.value}
+								</Col>
+								<Col>
+									<Badge bg="secondary">
+										{otherName.nameType}
+									</Badge>
+								</Col>
+							</Row>
+						</Container>
 					 )}
 				</>
 			)					
