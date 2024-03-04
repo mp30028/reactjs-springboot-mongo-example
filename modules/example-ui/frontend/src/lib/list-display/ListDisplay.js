@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 
-const ListDisplay = ({dataService}) => {
+const ListDisplay = ({dataService, itemHeader, itemBody}) => {
 	
 	const [data, setData] = useState([]);
 	
@@ -20,11 +20,11 @@ const ListDisplay = ({dataService}) => {
 		<Accordion>
 			{data.map(dataItem =>  
 				<Accordion.Item eventKey={dataItem.id} key={dataItem.id} >
-					<Accordion.Header >
-						{dataItem.lastname}, {dataItem.firstname}
+					<Accordion.Header>
+						{itemHeader({dataItem})}
 					</Accordion.Header>
 					<Accordion.Body >
-						{dataItem.moniker}
+						{itemBody({dataItem})}
 					</Accordion.Body>
 				</Accordion.Item>	
 			)}
