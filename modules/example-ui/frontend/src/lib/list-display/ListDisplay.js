@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
+import Accordion from 'react-bootstrap/Accordion';
 
 const ListDisplay = ({dataService}) => {
 	
-	const [data, setData] = useState(null);
+	const [data, setData] = useState([]);
 	
 	useEffect(() => {
 		const empty = {id:"temp-id-000", message :"No data available"};
@@ -13,10 +14,21 @@ const ListDisplay = ({dataService}) => {
 		}		
 	}, [setData, dataService]);	
 	
+
+	
 	return (
-		<pre>
-			{JSON.stringify(data,null,4)}
-		</pre>
+		<Accordion>
+			{data.map(dataItem =>  
+				<Accordion.Item eventKey={dataItem.id} key={dataItem.id} >
+					<Accordion.Header >
+						{dataItem.lastname}, {dataItem.firstname}
+					</Accordion.Header>
+					<Accordion.Body >
+						{dataItem.moniker}
+					</Accordion.Body>
+				</Accordion.Item>	
+			)}
+		</Accordion>
 	)
 }
 
