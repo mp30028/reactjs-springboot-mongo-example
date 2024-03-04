@@ -24,11 +24,11 @@ const Persons = () => {
 				<>
 				 	{dataItem.otherNames.map((otherName) =>
 						<Container fluid="false" style={{marginLeft: '1.5rem'}}>
-							<Row>
-								<Col xl={1} >
+							<Row style={{width: '250px'}}>
+								<Col>
 									{otherName.value}
 								</Col>
-								<Col>
+								<Col style={{width: '100px'}}>
 									<Badge bg="secondary">
 										{otherName.nameType}
 									</Badge>
