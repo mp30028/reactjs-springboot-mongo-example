@@ -23,7 +23,7 @@ const ListDisplay = ({dataService, itemHeader, itemBody}) => {
 					<Accordion.Header>
 						{itemHeader({dataItem})}
 					</Accordion.Header>
-					<Accordion.Body >
+					<Accordion.Body>
 						{itemBody({dataItem})}
 					</Accordion.Body>
 				</Accordion.Item>	
