@@ -14,8 +14,6 @@ const ListDisplay = ({dataService, itemHeader, itemBody}) => {
 		}		
 	}, [setData, dataService]);	
 	
-
-	
 	return (
 		<Accordion>
 			{data.map(dataItem =>  
