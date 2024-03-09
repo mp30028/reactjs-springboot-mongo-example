@@ -12,12 +12,17 @@ const Persons = () => {
 	
 	const dataService = new DataService(new ApiClientConfigs(), CONFIG_KEY);
 	
+	const onDataSaveHandler = (updatedData) => {
+		LOGGER.debug(LOGGER.name, "onDataSaveHandler", {updatedData: updatedData});
+		dataService.update(updatedData).then( (data) => LOGGER.debug(LOGGER.name, "onDataSaveHandler", {dataAfterUpdate: data}));
+	}
+	
 	
 	const itemHeader = ({dataItem}) => {
 		LOGGER.debug("itemHeader", "dataItem", dataItem);	
 			return (
 				<>
-				 	<Person data={dataItem} />
+				 	<Person data={dataItem} onDataSaveHandler={onDataSaveHandler} />
 				</>
 			)					
 	}

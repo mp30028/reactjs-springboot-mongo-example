@@ -6,26 +6,34 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-const Person = ({data}) =>{
-	const LOGGER = Logger('Person', level.DEBUG);
-	const [dirtyList, setDirtyList] = useState([]);
+const Person = ({data, onDataSaveHandler}) =>{
+	const LOGGER = Logger('Person', level.INFO);
+	const emptyUpdate = {fieldName: 'empty', updatedValue: ''};
+	const [listOfUpdates, setListOfUpdates] = useState([]);
 	
 	const onUpdateHandler = ({fieldName, updatedValue}) => {
 		LOGGER.debug(LOGGER.name, "onUpdateHandler", {fieldName: fieldName}, {updatedValue: updatedValue}, {originalValue: data[fieldName]});
-		var isFieldDirty = (updatedValue !== data[fieldName]);
-		LOGGER.debug(LOGGER.name, "onUpdateHandler, before-dirty-list-update", {isFieldDirty: isFieldDirty}, {dirtyListLength: dirtyList.length});
-		var updatedDirtyList = dirtyList.filter( item => item !== fieldName );
-		if (isFieldDirty){
-			updatedDirtyList = [...updatedDirtyList, fieldName]
+		const isFieldUpdated = (updatedValue !== data[fieldName]);
+		LOGGER.debug(LOGGER.name, "onUpdateHandler, before-dirty-list-update", {isFieldUpdated: isFieldUpdated}, {listOfUpdatesLength: listOfUpdates.length});
+		var updatedListOfUpdates = listOfUpdates.filter( item => item.fieldName !== fieldName );
+		if (isFieldUpdated){
+			updatedListOfUpdates = [...updatedListOfUpdates, {fieldName: fieldName, updatedValue: updatedValue}]
 		}
-		setDirtyList(updatedDirtyList);
-
+		setListOfUpdates(updatedListOfUpdates);
 	} 
 	
 	useEffect(() => {
 		const LOGGER = Logger('Person');
-		LOGGER.debug(LOGGER.name, "dirtyList-hook", {dirtyList: dirtyList});		
-	},[dirtyList]);
+		LOGGER.debug(LOGGER.name, "listOfUpdates-hook", {listOfUpdates: listOfUpdates});		
+	},[listOfUpdates]);
+	
+	const updatedDataFromPendingUpdates = (pendingUpdates) => {
+		const updatedData = Object.assign({}, data);
+		pendingUpdates.map(update => updatedData[update.fieldName] = update.updatedValue);
+		LOGGER.debug(LOGGER.name,"updatedDataFromPendingUpdates", {updatedData: updatedData}, {data: data});
+		return updatedData;
+	}
+	
 	
 	return (
 		<>
@@ -64,7 +72,11 @@ const Person = ({data}) =>{
 					</Col>
 				
 					<Col>
-						<SaveCancelButtons isEnabled={dirtyList.length > 0} />
+						<SaveCancelButtons 
+							isEnabled={listOfUpdates.length > 0}
+							updatedData={updatedDataFromPendingUpdates(listOfUpdates)} 
+							onSaveHandler={onDataSaveHandler}
+						/>
 					</Col>
 				</Row>
 			</Container>	
@@ -73,70 +85,3 @@ const Person = ({data}) =>{
 }
 
 export default Person;
-
-
-/* --------------------------------------------------------------------------------------------------- */
-//	const TextFieldEdit = ({fieldName, displayLabel, currentValue, onUpdateHandler}) =>{
-//		const LOGGER = Logger('TextFieldEdit', LogLevel.DEBUG);
-//		LOGGER.debug(LOGGER.name,{fieldName: fieldName}, {displayLabel: displayLabel}, {currentValue: currentValue});
-//		
-//		const onSaveHandler = (updatedValue) => {		
-//			LOGGER.debug(LOGGER.name, "onSaveHandler", {fieldName: fieldName}, {currentValue: currentValue}, {updatedValue: updatedValue});
-//			if (onUpdateHandler) onUpdateHandler({fieldName: fieldName, updatedValue: updatedValue})
-//		};
-//
-//		const onCancelHandler = () => {
-//			LOGGER.debug(LOGGER.name, "onCancelHandler", {fieldName: fieldName},);		
-//		};		
-//		
-//		
-//		return (
-//			<>
-//				<TextEdit 
-//					label={displayLabel}
-//					currentValue={currentValue}
-//					onSaveHandler={onSaveHandler}
-//					onCancelHandler={onCancelHandler}
-//				/>
-//			</>
-//		)
-//	}
-
-
-/* --------------------------------------------------------------------------------------------------- */
-//	const LastnameEdit = ({currentValue}) =>{
-//		const LOGGER = Logger('LastnameEdit', 'INFO');
-//		LOGGER.debug(LOGGER.name, "currentValue =", currentValue);
-//		return (
-//			<>
-//				<TextEdit currentValue={currentValue} label="Lastname" />
-//			</>
-//		)
-//	}
-
-
-/* --------------------------------------------------------------------------------------------------- */
-//	const MonikerEdit = ({currentValue}) =>{
-//		const LOGGER = Logger('MonikerEdit','INFO');
-//		LOGGER.debug(LOGGER.name, "currentValue =", currentValue);
-//		return (
-//			<>
-//				<TextEdit currentValue={currentValue} label="Moniker" />
-//			</>
-//		)
-//	}
-
-
-/* --------------------------------------------------------------------------------------------------- */
-//	const GenderEdit = ({currentValue}) =>{
-//		const LOGGER = Logger('GenderEdit', 'INFO');
-//		LOGGER.debug(LOGGER.name, "currentValue =", currentValue);
-//		return (
-//			<>
-//				<TextEdit currentValue={currentValue} label="Gender" />
-//			</>
-//		)
-//	}
-
-
-/* --------------------------------------------------------------------------------------------------- */

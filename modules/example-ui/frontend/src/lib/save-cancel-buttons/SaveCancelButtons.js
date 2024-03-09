@@ -2,13 +2,21 @@ import React from 'react';
 import Logger, {level} from 'lib/logger';
 import styles from "./SaveCancelButtons.module.css";
 
-const SaveCancelButtons = ({onSaveHandler, onCancelHandler, isEnabled}) => {
+const SaveCancelButtons = ({onSaveHandler, onCancelHandler, updatedData, isEnabled}) => {
 	
 	const LOGGER = Logger("SaveCancelButtons", level.INFO);
 		
 	const onSave = (event) =>{		
 		LOGGER.debug(LOGGER.name, "onSave-triggered: isEnabled =", isEnabled);
-		if (onSaveHandler)	onSaveHandler();
+		if (onSaveHandler && updatedData) {
+			onSaveHandler(updatedData);
+		}else{
+			if (!onSaveHandler){
+				LOGGER.warn(LOGGER.name, "onSave", "onSaveHandler not specified")	
+			}else{
+				LOGGER.debug(LOGGER.name, "onSave", "No pending updates")
+			}
+		}
 		event.stopPropagation();
 	}
 	
