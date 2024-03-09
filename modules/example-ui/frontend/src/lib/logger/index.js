@@ -1,4 +1,4 @@
-import Logger from './Logger.class';
-import LogLevel from './Logger.class';
+import Logger, {loggerLevel} from './Logger';
 
+export {loggerLevel as level};
 export default Logger;
