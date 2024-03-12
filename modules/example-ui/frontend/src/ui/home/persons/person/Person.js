@@ -6,9 +6,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-const Person = ({data, onDataSaveHandler}) =>{
+const Person = ({data, dataSaveHandler}) =>{
 	const LOGGER = Logger('Person', level.INFO);
-	const emptyUpdate = {fieldName: 'empty', updatedValue: ''};
 	const [listOfUpdates, setListOfUpdates] = useState([]);
 	
 	const onUpdateHandler = ({fieldName, updatedValue}) => {
@@ -75,7 +74,7 @@ const Person = ({data, onDataSaveHandler}) =>{
 						<SaveCancelButtons 
 							isEnabled={listOfUpdates.length > 0}
 							updatedData={updatedDataFromPendingUpdates(listOfUpdates)} 
-							onSaveHandler={onDataSaveHandler}
+							onSaveHandler={dataSaveHandler}
 						/>
 					</Col>
 				</Row>
