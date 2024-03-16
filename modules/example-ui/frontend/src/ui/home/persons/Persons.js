@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import Logger, {level} from 'lib/logger';
 import DataService from 'lib/data-service';
 import ApiClientConfigs from 'lib/api-client-configs';
@@ -11,29 +11,67 @@ const Persons = () => {
 	const CONFIG_KEY = "Persons";
 	const LOGGER =  Logger(CONFIG_KEY, level.DEBUG);
 	const [dataService, setDataService] = useState(null);
-//	const dataService = new DataService(new ApiClientConfigs(), CONFIG_KEY);
-
+	const personsRef = useRef([]);
 	const [persons, setPersons]= useState([]);
 	
-	//data-service-initialisation-hook
 	useEffect(()=>{
 		const ds = new DataService(new ApiClientConfigs(), CONFIG_KEY);
 		setDataService(ds);
 	},[setDataService])
 	
-	
-	
-	//post-initialisation-hook
 	useEffect(() => {
 		const LOGGER =  Logger(CONFIG_KEY);
-		const eventService = new EventService(new ApiClientConfigs(), CONFIG_KEY); 		
+		const eventService = new EventService(new ApiClientConfigs(), CONFIG_KEY);
+		 		
 		const onmessageHandler = (event) =>{
-			var eventData = JSON.parse(event.data);
-			LOGGER.debug(LOGGER.name, "post-initialisation-hook", {event: event}, {eventData: eventData.body})
-//			var updatedData = DataHandler.doUpdate(conversationsRef.current, eventData);
-//			setPersons(updatedData);
-		};		
-		
+			
+			const updatePersons = (currentPersons, updatedRecord) => {
+				const updatedPersons = currentPersons.map((p) => {
+					if (p.id === updatedRecord.id){
+						return updatedRecord;
+					}else{
+						return p;
+					}
+				});
+				setPersons(updatedPersons);
+			}
+			
+			const deleteFromPersons = (currentPersons, deletedRecordId) => {
+				const filteredPersons = currentPersons.filter((item) => item.id !== deletedRecordId );
+				setPersons(filteredPersons);				
+			}
+			
+			const insertIntoPersons = (currentPersons, newRecord) => {
+				const updatedPersons = [...currentPersons , newRecord];
+				setPersons(updatedPersons);				
+			}
+			
+			const eventData = JSON.parse(event.data);
+			const eventDataBody = eventData.body;
+			const operationType = eventData.operationType;
+			LOGGER.debug(LOGGER.name, "onmessageHandler",{event: event}, {operationType: operationType}, {eventDataBody: eventDataBody});
+			
+			switch(operationType){
+				case 'UPDATE':
+					LOGGER.debug(LOGGER.name, "onmessageHandler", {action: 'UPDATE'}, {updatePerson: eventDataBody});
+					updatePersons(personsRef.current, eventDataBody);
+					break;
+				case 'DELETE':
+					const id = eventData.raw.documentKey._id.value;
+					LOGGER.debug(LOGGER.name, "onmessageHandler", {action: 'DELETE'}, {deletedPersonId: id});
+					deleteFromPersons(personsRef.current, id);
+					break;
+				case 'INSERT':
+					LOGGER.debug(LOGGER.name, "onmessageHandler", {action: 'INSERT'}, {insertedPerson: eventDataBody});
+					insertIntoPersons(personsRef.current, eventDataBody);
+					break;
+				default:
+					LOGGER.debug(LOGGER.name, "onmessageHandler", {action: '<default>'});
+					break;
+			}
+
+		};
+				
 		if (dataService){
 			dataService.fetchAll().then((data) => setPersons(data));
 		}else{
@@ -42,8 +80,12 @@ const Persons = () => {
 		if (eventService){
 			eventService.listen(onmessageHandler);
 		}
-	}, [setPersons,dataService]);		
+	}, [setPersons, dataService]);		
 	
+	
+	useEffect(() => {
+		personsRef.current = persons;
+	},[persons]);
 	
 	
 	const dataSaveHandler = (updatedData) => {
@@ -53,7 +95,7 @@ const Persons = () => {
 	
 	
 	const itemHeader = ({dataItem}) => {
-		const LOGGER =  Logger("itemHeader", level.info);
+		const LOGGER =  Logger("itemHeader", level.INFO);
 		LOGGER.debug(LOGGER.name, {dataItem: dataItem});	
 			return (
 				<>
@@ -63,7 +105,7 @@ const Persons = () => {
 	}
 	
 	const itemBody = ({dataItem}) => {
-		const LOGGER =  Logger("itemBody", level.info);
+		const LOGGER =  Logger("itemBody", level.INFO);
 		LOGGER.debug(LOGGER.name, {dataItem: dataItem});
 		return(
 			<>
