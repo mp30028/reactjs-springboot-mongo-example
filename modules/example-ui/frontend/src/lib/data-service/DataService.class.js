@@ -5,7 +5,7 @@ export default class DataService{
 	constructor(configs, pathName) {
 		this.configs = configs;
 		this.pathName = pathName;
-		this.LOGGER = Logger("DataService", level.DEBUG);
+		this.LOGGER = Logger("DataService", level.INFO);
 	}
 	
 	fetch = async(fetchUrl) => {
