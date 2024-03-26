@@ -4,7 +4,7 @@ import TextEdit from 'lib/text-edit';
 
 const InlineEdit = () => {
 	const COMPONENT_NAME = 'InlineEdit';
-	const LOGGER = Logger(COMPONENT_NAME, level.DEBUG);
+	const LOGGER = Logger(COMPONENT_NAME, level.INFO);
 	const DEFAULT_VALUE = "This is a default value";
 	const [currentValue, setCurrentValue] = useState(DEFAULT_VALUE);
 	

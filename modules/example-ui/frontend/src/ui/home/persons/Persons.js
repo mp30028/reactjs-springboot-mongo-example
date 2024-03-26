@@ -52,6 +52,10 @@ const Persons = () => {
 			LOGGER.debug(LOGGER.name, "onmessageHandler",{event: event}, {operationType: operationType}, {eventDataBody: eventDataBody});
 			
 			switch(operationType){
+				case 'REPLACE':
+					LOGGER.debug(LOGGER.name, "onmessageHandler", {action: 'REPLACE'}, {updatePerson: eventDataBody});
+					updatePersons(personsRef.current, eventDataBody);
+					break;					
 				case 'UPDATE':
 					LOGGER.debug(LOGGER.name, "onmessageHandler", {action: 'UPDATE'}, {updatePerson: eventDataBody});
 					updatePersons(personsRef.current, eventDataBody);
@@ -99,7 +103,7 @@ const Persons = () => {
 		LOGGER.debug(LOGGER.name, {dataItem: dataItem});	
 			return (
 				<>
-				 	<Person data={dataItem} dataSaveHandler={dataSaveHandler}/>
+				 	<Person data={dataItem} dataSaveHandler={dataSaveHandler} />
 				</>
 			)					
 	}
