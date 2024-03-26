@@ -3,8 +3,8 @@ import Logger, {level} from 'lib/logger';
 import TextEdit from 'lib/text-edit';
 
 const InlineEdit = () => {
-	const LOGGER_NAME = 'InlineEdit';
-	const LOGGER = Logger(LOGGER_NAME, level.DEBUG);
+	const COMPONENT_NAME = 'InlineEdit';
+	const LOGGER = Logger(COMPONENT_NAME, level.DEBUG);
 	const DEFAULT_VALUE = "This is a default value";
 	const [currentValue, setCurrentValue] = useState(DEFAULT_VALUE);
 	
@@ -14,7 +14,7 @@ const InlineEdit = () => {
 	}
 	
 	useEffect(()=>{
-		const LOGGER = Logger(LOGGER_NAME);
+		const LOGGER = Logger(COMPONENT_NAME);
 		LOGGER.debug(LOGGER.name, "currentValue-Hook",  {currentValue: currentValue});
 	},[currentValue])
 	
@@ -26,8 +26,8 @@ const InlineEdit = () => {
 		<>
 			<TextEdit fieldName='Input'
 				displayLabel='Input text'  
-				currentValue={currentValue} 
-				onSaveHandler={onUpdateHandler} 
+				value={currentValue} 
+				saveHandler={onUpdateHandler} 
 			/>
 			
 			<input type='button' id='resetButton' name= 'resetButton' onClick={doReset} value="reset" />
