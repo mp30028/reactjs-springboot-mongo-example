@@ -4,7 +4,7 @@ import Logger, {level} from 'lib/logger';
 
 const ListDisplay = ({data, itemHeader, itemBody}) => {
 	const COMPONENT_NAME = 'ListDisplay';
-	const LOGGER = Logger(COMPONENT_NAME, level.DEBUG);
+	const LOGGER = Logger(COMPONENT_NAME, level.INFO);
 	const [currentData, setCurrentData] = useState([]);
 	
 	
