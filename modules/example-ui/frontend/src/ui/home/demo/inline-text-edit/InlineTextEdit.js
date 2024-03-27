@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Logger, {level} from 'lib/logger';
 import TextEdit from 'lib/text-edit';
 
-const InlineEdit = () => {
-	const COMPONENT_NAME = 'InlineEdit';
+const InlineTextEdit = () => {
+	const COMPONENT_NAME = 'InlineTextEdit';
 	const LOGGER = Logger(COMPONENT_NAME, level.INFO);
 	const DEFAULT_VALUE = "This is a default value";
 	const [currentValue, setCurrentValue] = useState(DEFAULT_VALUE);
@@ -36,4 +36,4 @@ const InlineEdit = () => {
 
 }
 
-export default InlineEdit;
+export default InlineTextEdit;

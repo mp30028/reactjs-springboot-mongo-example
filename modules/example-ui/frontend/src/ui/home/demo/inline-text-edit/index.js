@@ -1,3 +1,3 @@
-import InlineEdit from './InlineEdit';
+import InlineTextEdit from './InlineTextEdit';
 
-export default InlineEdit;
+export default InlineTextEdit;
