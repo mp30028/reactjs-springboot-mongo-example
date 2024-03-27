@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Logger, {level} from 'lib/logger';
-import TextEdit from 'lib/text-edit';
+import ComboEdit from 'lib/combo-edit';
 
 const InlineComboEdit = () => {
 	const COMPONENT_NAME = 'InlineComboEdit';
@@ -24,7 +24,7 @@ const InlineComboEdit = () => {
 	
 	return (
 		<>
-			<TextEdit fieldName='Input'
+			<ComboEdit fieldName='Input'
 				displayLabel='Input text'  
 				value={currentValue} 
 				saveHandler={onUpdateHandler} 
