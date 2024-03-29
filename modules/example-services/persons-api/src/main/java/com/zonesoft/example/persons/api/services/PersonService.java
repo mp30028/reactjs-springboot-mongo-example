@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.ChangeStreamEvent;
+import org.springframework.data.mongodb.core.ChangeStreamOptions;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.stereotype.Service;
 
@@ -72,10 +73,13 @@ public class PersonService {
     }
 	
 	public Flux<ChangeStreamEvent<Person>> events() {
+//        ChangeStreamOptions options = ChangeStreamOptions.builder()
+//        		.fullDocumentBeforeChangeLookup('persons').build();
 		Flux<ChangeStreamEvent<Person>> flux = template
 				.changeStream(Person.class)
-				.watchCollection("persons")	
-				.listen();
+//				.withOptions(null)
+				.watchCollection("persons")
+				.listen().log();
 		return flux;
 	}
 	

@@ -1,22 +1,29 @@
 import React, {useState, useEffect} from 'react';
 import Accordion from 'react-bootstrap/Accordion';
+import Logger, {level} from 'lib/logger';
 
-const ListDisplay = ({dataService, itemHeader, itemBody}) => {
+const ListDisplay = ({data, itemHeader, itemBody}) => {
+	const COMPONENT_NAME = 'ListDisplay';
+	const LOGGER = Logger(COMPONENT_NAME, level.INFO);
+	const [currentData, setCurrentData] = useState([]);
 	
-	const [data, setData] = useState([]);
 	
-	useEffect(() => {
-		const empty = {id:"temp-id-000", message :"No data available"};
-		if (dataService){
-			dataService.fetchAll().then((data) => setData(data));
-		}else{
-			setData(empty);
-		}		
-	}, [setData, dataService]);	
+	useEffect(()=>{
+		const LOGGER = Logger(COMPONENT_NAME);
+		LOGGER.debug(LOGGER.name, "data-hook", {currentData: currentData}, {data: data})
+		setCurrentData(data);
+	},[data])
+	
+	
+	useEffect(()=>{
+		const LOGGER = Logger(COMPONENT_NAME);
+		LOGGER.debug(LOGGER.name, "currentData-hook", {currentData: currentData}, {data: data})		
+	},[currentData])
 	
 	return (
 		<Accordion>
-			{data.map(dataItem =>  
+			
+			{currentData.map(dataItem =>  
 				<Accordion.Item eventKey={dataItem.id} key={dataItem.id} >
 					<Accordion.Header>
 						{itemHeader({dataItem})}
